@@ -1,3 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-export default ({ id }) => id;
+export default ({ id }) => (
+    <div>
+        <Link to={ `${ id }` }>{ id }</Link>
+    </div>
+);

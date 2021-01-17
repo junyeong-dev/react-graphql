@@ -52,6 +52,7 @@ const Loading = styled.div`
 export default () => {
     // react-hook 을 이용하여 간단하게 쿼리를 보낼 수 있음
     const { loading, error, data } = useQuery(GET_MOVIES);
+    console.log(error);
     return (
         <Container>
             <Header>
