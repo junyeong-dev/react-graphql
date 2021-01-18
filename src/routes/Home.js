@@ -7,10 +7,10 @@ import Movie from "../components/Movie";
 // query를 작성 ''가 아닌 ``로 작성해야함
 const GET_MOVIES = gql`
 {
-    movies {
-        id
-        medium_cover_image
-    }
+  movies {
+      id
+      medium_cover_image
+  }
 }
 `;
 
@@ -59,8 +59,8 @@ export default () => {
                 <Title>Appolo</Title>
                 <Subtitle>GraphQL</Subtitle>
             </Header>
-            { loading && <Loading>Loading</Loading> }
-            { !loading && data.movies && data.movies.map(m => <Movie key={ m.id } { ...m }/>) }
+            {loading && <Loading>Loading...</Loading>}
+            {!loading && data.movies && data.movies.map(m => <Movie key={ m.id } id={ m.id } />)}
         </Container>
     );
 };
