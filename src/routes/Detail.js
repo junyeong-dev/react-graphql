@@ -4,6 +4,7 @@ import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 import styled from "styled-components";
 
+// 새로운 쿼리의 함수를 만들지 않아도 병렬로 쿼리를 보낼 수 있음
 const GET_MOVIE = gql`
     query movie($id: Int!) {
         movie(id: $id) {
@@ -12,6 +13,10 @@ const GET_MOVIE = gql`
             rating
             medium_cover_image
             description_intro
+        }
+        suggestions(id: $id) {
+            id
+            medium_cover_image
         }
     }
 `;
@@ -66,14 +71,12 @@ export default () => {
             <Column>
             {/* data를 바로 가져오는 것이 아니기 때문에 loading를 통해 확인 후 rendering */}
             <Title>{ loading ? "Loading..." : data.movie.title }</Title>
-            { !loading && data.movie && (
-                <>
-                    <Subtitle>{ data.movie.language } ・ { data.movie.rating }</Subtitle>
-                    <Description>{ data.movie.description_intro }</Description>
-                </>
-            ) }
+                <Subtitle>{ data?.movie?.language } ・ { data?.movie?.rating }</Subtitle>
+                <Description>{ data?.movie?.description_intro }</Description>
             </Column>
-            <Poster bg={ data && data.movie ? data.movie.medium_cover_image: "" }></Poster>
+            {/* <Poster bg={ data && data.movie ? data.movie.medium_cover_image: "" }></Poster> */}
+            {/* Javascript optional chaining */}
+            <Poster bg={ data?.movie?.medium_cover_image }></Poster>
         </Container>
     );
 };
