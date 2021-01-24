@@ -8,7 +8,10 @@ const client = new ApolloClient({
         },
         Mutation: {
             likeMovie: (_, { id }, { cache }) => {
-                console.log(id);
+                cache.writeDate({ 
+                    id: `Movie:${ id }`, data: {
+                    isLiked: true
+                } });
             }
         }
     }
