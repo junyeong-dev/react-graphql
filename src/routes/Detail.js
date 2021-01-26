@@ -5,14 +5,17 @@ import { useQuery } from "@apollo/react-hooks";
 import styled from "styled-components";
 
 // 새로운 쿼리의 함수를 만들지 않아도 병렬로 쿼리를 보낼 수 있음
+// movie에도 id를 부여함으로써 apollo에게 같은 객체를 가르키는 것이라고 명시해줄 수 있음
 const GET_MOVIE = gql`
     query movie($id: Int!) {
         movie(id: $id) {
+            id
             title
             language
             rating
             medium_cover_image
             description_intro
+            isLiked @client
         }
         suggestions(id: $id) {
             id
@@ -70,7 +73,7 @@ export default () => {
         <Container>
             <Column>
             {/* data를 바로 가져오는 것이 아니기 때문에 loading를 통해 확인 후 rendering */}
-            <Title>{ loading ? "Loading..." : data.movie.title }</Title>
+            <Title>{ loading ? "Loading..." : `${ data.movie.title } ${ data.movie.isLiked ? "💘" : "💔" }` }</Title>
                 <Subtitle>{ data?.movie?.language } ・ { data?.movie?.rating }</Subtitle>
                 <Description>{ data?.movie?.description_intro }</Description>
             </Column>
